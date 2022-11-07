@@ -12,9 +12,13 @@
 
 对于 windows 系统使用以下命令导入 ca.perm：
 
+~~keytool -import -v -trustcacerts -alias appmanagement -file "PATH...\\ca.pem" -storepass password -keystore cacerts~~
+
 ``` bash
-keytool -import -v -trustcacerts -alias appmanagement -file "PATH...\\ca.pem" -storepass password -keystore cacerts
+openssl x509 -in ca.pem -out ca.crt
 ```
+
+然后在 windows 上将 ca.crt 安装为“受信任的根证书颁发机构”（可以通过 certmgr.msc 查看已安装的证书）
 
 再次访问 [apiserver 地址](https://172.27.138.251:6443/)，已信任，但提示 401，未授权的访问：
 
